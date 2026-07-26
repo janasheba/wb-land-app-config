@@ -1,47 +1,53 @@
 <?php
+// Process BEFORE header.php include
 require_once '../github_functions.php';
 
-// Handle Form Submission BEFORE any output
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$message = '';
+$debug_info = '';
+
+// Handle Form Submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $config = githubGetConfig();
     if (!$config) {
-        die("Error: Could not fetch current config.");
-    }
-
-    $config['ads']['global_ad_status'] = isset($_POST['global_ad_status']) ? 1 : 0;
-    
-    $config['ads']['banner']['status'] = isset($_POST['banner_ad_status']) ? 1 : 0;
-    $config['ads']['banner']['id'] = trim($_POST['banner_ad_id'] ?? '');
-
-    $config['ads']['interstitial']['status'] = isset($_POST['interstitial_ad_status']) ? 1 : 0;
-    $config['ads']['interstitial']['id'] = trim($_POST['interstitial_ad_id'] ?? '');
-    $config['ads']['interstitial']['interval_min'] = (int)($_POST['interstitial_interval_min'] ?? 0);
-    $config['ads']['interstitial']['daily_limit'] = (int)($_POST['interstitial_daily_limit'] ?? 0);
-
-    $config['ads']['app_open']['status'] = isset($_POST['app_open_ad_status']) ? 1 : 0;
-    $config['ads']['app_open']['id'] = trim($_POST['app_open_ad_id'] ?? '');
-    $config['ads']['app_open']['interval_min'] = (int)($_POST['app_open_interval_min'] ?? 0);
-    $config['ads']['app_open']['daily_limit'] = (int)($_POST['app_open_daily_limit'] ?? 0);
-
-    $config['ads']['native']['status'] = isset($_POST['native_ad_status']) ? 1 : 0;
-    $config['ads']['native']['id'] = trim($_POST['native_ad_id'] ?? '');
-    $config['ads']['native']['interval_min'] = (int)($_POST['native_interval_min'] ?? 0);
-    $config['ads']['native']['daily_limit'] = (int)($_POST['native_daily_limit'] ?? 0);
-
-    $config['ads']['rewarded']['status'] = isset($_POST['rewarded_ad_status']) ? 1 : 0;
-    $config['ads']['rewarded']['id'] = trim($_POST['rewarded_ad_id'] ?? '');
-    $config['ads']['rewarded']['interval_min'] = (int)($_POST['rewarded_interval_min'] ?? 0);
-    $config['ads']['rewarded']['daily_limit'] = (int)($_POST['rewarded_daily_limit'] ?? 0);
-
-    $result = githubUpdateConfig($config);
-    
-    if (stripos($result, "Success") !== false) {
-        // Wait for GitHub sync
-        sleep(1);
-        header("Location: ads.php?updated=1");
-        exit;
+        $message = '<div class="alert alert-danger">Error: Could not fetch current config from GitHub. Check logs/github.log</div>';
+        $debug_info = @file_get_contents('../logs/github.log') ?? 'No logs found';
     } else {
-        $update_error = $result;
+        // Only process if config was loaded successfully
+        $config['ads']['global_ad_status'] = isset($_POST['global_ad_status']) ? 1 : 0;
+        
+        $config['ads']['banner']['status'] = isset($_POST['banner_ad_status']) ? 1 : 0;
+        $config['ads']['banner']['id'] = trim($_POST['banner_ad_id'] ?? '');
+
+        $config['ads']['interstitial']['status'] = isset($_POST['interstitial_ad_status']) ? 1 : 0;
+        $config['ads']['interstitial']['id'] = trim($_POST['interstitial_ad_id'] ?? '');
+        $config['ads']['interstitial']['interval_min'] = (int)($_POST['interstitial_interval_min'] ?? 0);
+        $config['ads']['interstitial']['daily_limit'] = (int)($_POST['interstitial_daily_limit'] ?? 0);
+
+        $config['ads']['app_open']['status'] = isset($_POST['app_open_ad_status']) ? 1 : 0;
+        $config['ads']['app_open']['id'] = trim($_POST['app_open_ad_id'] ?? '');
+        $config['ads']['app_open']['interval_min'] = (int)($_POST['app_open_interval_min'] ?? 0);
+        $config['ads']['app_open']['daily_limit'] = (int)($_POST['app_open_daily_limit'] ?? 0);
+
+        $config['ads']['native']['status'] = isset($_POST['native_ad_status']) ? 1 : 0;
+        $config['ads']['native']['id'] = trim($_POST['native_ad_id'] ?? '');
+        $config['ads']['native']['interval_min'] = (int)($_POST['native_interval_min'] ?? 0);
+        $config['ads']['native']['daily_limit'] = (int)($_POST['native_daily_limit'] ?? 0);
+
+        $config['ads']['rewarded']['status'] = isset($_POST['rewarded_ad_status']) ? 1 : 0;
+        $config['ads']['rewarded']['id'] = trim($_POST['rewarded_ad_id'] ?? '');
+        $config['ads']['rewarded']['interval_min'] = (int)($_POST['rewarded_interval_min'] ?? 0);
+        $config['ads']['rewarded']['daily_limit'] = (int)($_POST['rewarded_daily_limit'] ?? 0);
+
+        $result = githubUpdateConfig($config);
+        
+        if (stripos($result, "Success") !== false) {
+            // Redirect with header BEFORE any output
+            header("Location: ads.php?updated=1");
+            exit;
+        } else {
+            $message = '<div class="alert alert-danger"><strong>Error:</strong> ' . htmlspecialchars($result) . '</div>';
+            $debug_info = @file_get_contents('../logs/github.log') ?? 'No logs found';
+        }
     }
 }
 
@@ -59,9 +65,8 @@ $ad_data['rewarded'] ??= [];
 $ad_data['app_open'] ??= [];
 
 $updated = isset($_GET['updated']);
-$update_error = $update_error ?? null;
 
-// NOW include header.php after all PHP processing
+// NOW include header AFTER all processing
 require_once 'header.php';
 ?>
 
@@ -95,16 +100,20 @@ input:checked + .slider:before { transform: translateX(26px); }
     <button type="submit" form="adsForm" class="btn btn-primary"><i class="fas fa-save"></i> Save Settings</button>
 </div>
 
-<?php if ($updated): ?>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>✓ Success!</strong> Ad settings updated successfully and synced from GitHub!
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<?php if ($message): ?>
+    <?= $message ?>
+<?php endif; ?>
+
+<?php if ($debug_info && $message): ?>
+<div class="alert alert-info">
+    <strong>Debug Info:</strong><br>
+    <pre style="font-size: 11px; max-height: 200px; overflow-y: auto;"><?= htmlspecialchars($debug_info) ?></pre>
 </div>
 <?php endif; ?>
 
-<?php if ($update_error): ?>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>✗ Error:</strong> <?= htmlspecialchars($update_error) ?>
+<?php if ($updated): ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>✓ Success!</strong> Ad settings updated successfully and synced from GitHub!
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 <?php endif; ?>
