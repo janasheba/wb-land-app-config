@@ -37,15 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = githubUpdateConfig($config);
     
     if (stripos($result, "Success") !== false) {
-        echo "<script>alert('Ad Settings Updated Successfully!'); window.location.href='ads.php';</script>";
+        // Wait for GitHub sync
+        sleep(2);
+        
+        // Redirect to refresh page with new data
+        header("Location: ads.php?updated=1");
         exit;
     } else {
-        echo "<script>alert('$result'); window.location.href='ads.php';</script>";
+        echo "<script>alert('Error: " . addslashes($result) . "'); window.location.href='ads.php';</script>";
         exit;
     }
 }
 
-// Fetch Current Settings
+// Fetch Current Settings - Fresh from GitHub
 $ad_settings = githubGetConfig();
 if (!$ad_settings) {
     die("Error: Could not fetch config from GitHub.");
@@ -57,6 +61,8 @@ $ad_data['interstitial'] ??= [];
 $ad_data['native'] ??= [];
 $ad_data['rewarded'] ??= [];
 $ad_data['app_open'] ??= [];
+
+$updated = isset($_GET['updated']);
 ?>
 
 <style>
@@ -88,6 +94,13 @@ input:checked + .slider:before { transform: translateX(26px); }
     </div>
     <button type="submit" form="adsForm" class="btn btn-primary"><i class="fas fa-save"></i> Save Settings</button>
 </div>
+
+<?php if ($updated): ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>✓ Success!</strong> Ad settings updated successfully and synced from GitHub!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<?php endif; ?>
 
 <form id="adsForm" method="POST" action="ads.php">
 
