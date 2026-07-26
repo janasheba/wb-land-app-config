@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $config = githubGetConfig();
     if (!$config) {
         $message = '<div class="alert alert-danger">Error: Could not fetch current config from GitHub. Check logs/github.log</div>';
-        $debug_info = file_get_contents('logs/github.log') ?? 'No logs found';
+        $debug_info = @file_get_contents('../logs/github.log') ?? 'No logs found';
     } else {
         $config['app']['latest_version'] = $_POST['app_version'];
         $config['app']['minimum_version'] = $_POST['app_version_old'];
@@ -21,15 +21,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = githubUpdateConfig($config);
         
         if (stripos($result, "Success") !== false) {
-            $message = '<div class="alert alert-success"><strong>✓ Success!</strong> Settings updated successfully in GitHub!</div>';
+            $message = '<div class="alert alert-success"><strong>✓ Success!</strong> Settings updated successfully in GitHub! Refreshing data...</div>';
+            
+            // Wait a moment for GitHub to sync
+            sleep(2);
+            
+            // Force refresh from GitHub
+            $config = null;
+            for ($i = 0; $i < 3; $i++) {
+                $config = githubGetConfig();
+                if ($config) break;
+                sleep(1);
+            }
         } else {
             $message = '<div class="alert alert-danger"><strong>✗ Error:</strong> ' . htmlspecialchars($result) . '</div>';
-            $debug_info = file_get_contents('logs/github.log') ?? 'No logs found';
+            $debug_info = @file_get_contents('../logs/github.log') ?? 'No logs found';
         }
     }
 }
 
-// Fetch current settings
+// Fetch current settings - Fresh from GitHub
 $config = githubGetConfig();
 if (!$config) {
     die('<div class="alert alert-danger">Error: Could not fetch config from GitHub. Please check:<br>1. Your GITHUB_TOKEN is valid<br>2. Internet connection is working<br>3. Check logs/github.log for details</div>');
