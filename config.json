@@ -1,0 +1,26 @@
+{
+  "status": "success",
+  "data": {
+    "id": 1,
+    "global_ad_status": 1,
+    "banner_ad_status": 1,
+    "banner_ad_id": "ca-app-pub-5996914876027700/4683578512",
+    "interstitial_ad_status": 1,
+    "interstitial_ad_id": "ca-app-pub-5996914876027700/9060852932",
+    "interstitial_clicks": 5,
+    "interstitial_interval_min": 1,
+    "interstitial_daily_limit": 60,
+    "app_open_ad_status": 1,
+    "app_open_ad_id": "ca-app-pub-5996914876027700/9224504468",
+    "app_open_interval_min": 1,
+    "app_open_daily_limit": 60,
+    "native_ad_status": 1,
+    "native_ad_id": "ca-app-pub-5996914876027700/7747771261",
+    "native_interval_min": 1,
+    "native_daily_limit": 60,
+    "rewarded_ad_status": 1,
+    "rewarded_ad_id": "ca-app-pub-5996914876027700/1820621777",
+    "rewarded_interval_min": 1,
+    "rewarded_daily_limit": 60
+  }
+}
