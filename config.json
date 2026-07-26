@@ -11,7 +11,7 @@
     "ads": {
         "global_ad_status": 1,
         "banner": {
-            "status": 1,
+            "status": 0,
             "id": "ca-app-pub-5996914876027700/4683578512"
         },
         "interstitial": {
