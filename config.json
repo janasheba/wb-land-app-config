@@ -3,9 +3,9 @@
     "app": {
         "latest_version": "2.0",
         "minimum_version": "1.9",
-        "update_required": false,
+        "update_required": true,
         "cancellable": true,
-        "update_text": "A new version of the app is available. Please update to continue.",
+        "update_text": "নতুন ভার্সন উপলব্ধ। অনুগ্রহ করে অ্যাপ আপডেট করুন।",
         "update_url": "https://play.google.com/store/apps/details?id=in.janasheba.bhumirtathya"
     },
     "ads": {
