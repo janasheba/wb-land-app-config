@@ -17,6 +17,7 @@
         "interstitial": {
             "status": 1,
             "id": "ca-app-pub-5996914876027700/9060852932",
+            "clicks": 5,
             "interval_min": 1,
             "daily_limit": 60
         },
