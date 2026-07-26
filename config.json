@@ -1,7 +1,7 @@
 {
     "status": "success",
     "app": {
-        "latest_version": "2.0",
+        "latest_version": "1.9",
         "minimum_version": "1.9",
         "update_required": true,
         "cancellable": false,
@@ -11,7 +11,7 @@
     "ads": {
         "global_ad_status": 1,
         "banner": {
-            "status": 1,
+            "status": 0,
             "id": "ca-app-pub-5996914876027700/4683578512"
         },
         "interstitial": {
@@ -33,7 +33,7 @@
             "daily_limit": 60
         },
         "app_open": {
-            "status": 1,
+            "status": 0,
             "id": "ca-app-pub-5996914876027700/9224504468",
             "interval_min": 1,
             "daily_limit": 60
