@@ -1,8 +1,7 @@
 <?php
-require_once 'header.php';
 require_once '../github_functions.php';
 
-// Handle Form Submission
+// Handle Form Submission BEFORE any output
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $config = githubGetConfig();
     if (!$config) {
@@ -38,14 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (stripos($result, "Success") !== false) {
         // Wait for GitHub sync
-        sleep(2);
-        
-        // Redirect to refresh page with new data
+        sleep(1);
         header("Location: ads.php?updated=1");
         exit;
     } else {
-        echo "<script>alert('Error: " . addslashes($result) . "'); window.location.href='ads.php';</script>";
-        exit;
+        $update_error = $result;
     }
 }
 
@@ -63,6 +59,10 @@ $ad_data['rewarded'] ??= [];
 $ad_data['app_open'] ??= [];
 
 $updated = isset($_GET['updated']);
+$update_error = $update_error ?? null;
+
+// NOW include header.php after all PHP processing
+require_once 'header.php';
 ?>
 
 <style>
@@ -98,6 +98,13 @@ input:checked + .slider:before { transform: translateX(26px); }
 <?php if ($updated): ?>
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>✓ Success!</strong> Ad settings updated successfully and synced from GitHub!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<?php endif; ?>
+
+<?php if ($update_error): ?>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>✗ Error:</strong> <?= htmlspecialchars($update_error) ?>
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 <?php endif; ?>
