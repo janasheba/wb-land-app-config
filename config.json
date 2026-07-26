@@ -9,7 +9,7 @@
         "update_url": "https://play.google.com/store/apps/details?id=in.janasheba.bhumirtathya"
     },
     "ads": {
-        "global_ad_status": 0,
+        "global_ad_status": 1,
         "banner": {
             "status": 1,
             "id": "ca-app-pub-5996914876027700/4683578512"
@@ -34,7 +34,7 @@
             "daily_limit": 60
         },
         "app_open": {
-            "status": 0,
+            "status": 1,
             "id": "ca-app-pub-5996914876027700/9224504468",
             "interval_min": 1,
             "daily_limit": 60
