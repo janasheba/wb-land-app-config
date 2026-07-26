@@ -33,7 +33,7 @@
             "daily_limit": 60
         },
         "app_open": {
-            "status": 1,
+            "status": 0,
             "id": "ca-app-pub-5996914876027700/9224504468",
             "interval_min": 1,
             "daily_limit": 60
