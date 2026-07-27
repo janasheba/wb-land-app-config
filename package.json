@@ -1,0 +1,12 @@
+{
+  "name": "wb-land-app-config",
+  "version": "1.0.0",
+  "description": "IP tracker API",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Build complete'"
+  },
+  "keywords": ["ip", "tracker"],
+  "author": "",
+  "license": "MIT"
+}
