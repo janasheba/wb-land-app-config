@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "description": "IP tracker API",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'Build complete'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {},
   "keywords": ["ip", "tracker"],
   "author": "",
   "license": "MIT"
