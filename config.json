@@ -1,48 +1,43 @@
 {
-  "status": "success",
-  "app": {
-    "latest_version": "1.9",
-    "minimum_version": "1.9",
-    "update_required": true,
-    "cancellable": true,
-    "update_text": "নতুন ভার্সন উপলব্ধ। অনুগ্রহ করে অ্যাপ আপডেট করুন।",
-    "update_url": "https://play.google.com/store/apps/details?id=in.janasheba.bhumirtathya"
-  },
-  "ads": {
-    "global_ad_status": 1,
-
-    "banner": {
-      "status": 1,
-      "id": "ca-app-pub-3940256099942544/9214589741"
+    "status": "success",
+    "app": {
+        "latest_version": "1.9",
+        "minimum_version": "1.9",
+        "update_required": true,
+        "cancellable": true,
+        "update_text": "নতুন ভার্সন উপলব্ধ। অনুগ্রহ করে অ্যাপ আপডেট করুন।",
+        "update_url": "https://play.google.com/store/apps/details?id=in.janasheba.bhumirtathya"
     },
-
-    "interstitial": {
-      "status": 1,
-      "id": "ca-app-pub-3940256099942544/1033173712",
-      "clicks": 5,
-      "interval_min": 1,
-      "daily_limit": 60
-    },
-
-    "native": {
-      "status": 1,
-      "id": "ca-app-pub-3940256099942544/2247696110",
-      "interval_min": 1,
-      "daily_limit": 60
-    },
-
-    "rewarded": {
-      "status": 1,
-      "id": "ca-app-pub-3940256099942544/5224354917",
-      "interval_min": 1,
-      "daily_limit": 60
-    },
-
-    "app_open": {
-      "status": 1,
-      "id": "ca-app-pub-3940256099942544/9257395921",
-      "interval_min": 1,
-      "daily_limit": 60
+    "ads": {
+        "global_ad_status": 1,
+        "banner": {
+            "status": 1,
+            "id": "ca-app-pub-3940256099942544/9214589741"
+        },
+        "interstitial": {
+            "status": 1,
+            "id": "ca-app-pub-3940256099942544/1033173712",
+            "clicks": 5,
+            "interval_min": 1,
+            "daily_limit": 60
+        },
+        "native": {
+            "status": 1,
+            "id": "ca-app-pub-3940256099942544/2247696110",
+            "interval_min": 1,
+            "daily_limit": 60
+        },
+        "rewarded": {
+            "status": 1,
+            "id": "ca-app-pub-3940256099942544/5224354917",
+            "interval_min": 1,
+            "daily_limit": 60
+        },
+        "app_open": {
+            "status": 0,
+            "id": "ca-app-pub-3940256099942544/9257395921",
+            "interval_min": 1,
+            "daily_limit": 60
+        }
     }
-  }
 }
