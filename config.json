@@ -15,7 +15,7 @@
             "id": "ca-app-pub-3940256099942544/9214589741"
         },
         "interstitial": {
-            "status": 1,
+            "status": 0,
             "id": "ca-app-pub-3940256099942544/1033173712",
             "clicks": 5,
             "interval_min": 1,
