@@ -12,30 +12,30 @@
         "global_ad_status": 1,
         "banner": {
             "status": 1,
-            "id": "ca-app-pub-3940256099942544/9214589741"
+            "id": "ca-app-pub-5996914876027700/4683578512"
         },
         "interstitial": {
             "status": 0,
-            "id": "ca-app-pub-3940256099942544/1033173712",
+            "id": "ca-app-pub-5996914876027700/9060852932",
             "clicks": 5,
             "interval_min": 1,
             "daily_limit": 60
         },
         "native": {
             "status": 1,
-            "id": "ca-app-pub-3940256099942544/2247696110",
+            "id": "ca-app-pub-5996914876027700/7747771261",
             "interval_min": 1,
             "daily_limit": 60
         },
         "rewarded": {
             "status": 1,
-            "id": "ca-app-pub-3940256099942544/5224354917",
+            "id": "ca-app-pub-5996914876027700/1820621777",
             "interval_min": 1,
             "daily_limit": 60
         },
         "app_open": {
             "status": 0,
-            "id": "ca-app-pub-3940256099942544/9257395921",
+            "id": "ca-app-pub-5996914876027700/9224504468",
             "interval_min": 1,
             "daily_limit": 60
         }
