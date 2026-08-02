@@ -15,7 +15,7 @@
             "id": "ca-app-pub-5996914876027700/8820790142"
         },
         "interstitial": {
-            "status": 0,
+            "status": 1,
             "id": "ca-app-pub-5996914876027700/6378459635",
             "clicks": 5,
             "interval_min": 1,
@@ -34,7 +34,7 @@
             "daily_limit": 60
         },
         "app_open": {
-            "status": 0,
+            "status": 1,
             "id": "ca-app-pub-5996914876027700/7691541301",
             "interval_min": 1,
             "daily_limit": 60
